@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tetris Survive - Neon Cyberpunk Arcade</title>
+  
+  <!-- Beautiful Cyberpunk/Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-grid-lines"></div>
+
+  <!-- SCREEN 1: MODE SELECTION -->
+  <div id="mode-screen" class="screen active">
+    <h1>Tetris Survive</h1>
+    <div class="subtitle">Climb to escape, or build to crush</div>
+    
+    <div class="mode-container glass-card">
+      <button class="mode-btn mode-btn-hvh" onclick="startGameMode('HvH')">
+        <div class="mode-details">
+          <span class="mode-title">Human vs Human</span>
+          <span class="mode-desc">🧍 Local keyboard vs local keyboard</span>
+        </div>
+        <span class="mode-emoji">🧍🆚🧍</span>
+      </button>
+
+      <button class="mode-btn mode-btn-cpustickman" onclick="startGameMode('StickmanCPU_TetrisHuman')">
+        <div class="mode-details">
+          <span class="mode-title">CPU Stickman vs Human Tetris</span>
+          <span class="mode-desc">🤖 Auto-climbing stickman vs human placer</span>
+        </div>
+        <span class="mode-emoji">🤖🆚🧍</span>
+      </button>
+
+      <button class="mode-btn mode-btn-cputetris" onclick="startGameMode('StickmanHuman_TetrisCPU')">
+        <div class="mode-details">
+          <span class="mode-title">Human Stickman vs CPU Tetris</span>
+          <span class="mode-desc">🧍 Human controller vs auto-burying computer</span>
+        </div>
+        <span class="mode-emoji">🧍🆚🤖</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: GAMEPLAY -->
+  <div id="game-screen" class="screen">
+    <div class="game-layout">
+      
+      <!-- LEFT PANEL: PLAYER 1 (STICKMAN) -->
+      <div class="side-panel">
+        <div class="glass-card player-card p1">
+          <div class="panel-header p1-color">
+            Stickman
+            <span id="p1-badge" class="badge-human">Human</span>
+          </div>
+          
+          <div id="p1-controls" class="controls-list">
+            <div class="control-item">
+              <span class="control-label">Walk Left</span>
+              <span class="control-key">A</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label">Walk Right</span>
+              <span class="control-key">D</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label">Climb Wall</span>
+              <span class="control-key">W</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label">Jump</span>
+              <span class="control-key">SPACE</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label">Dash</span>
+              <span class="control-key">X</span>
+            </div>
+          </div>
+          <div id="p1-cpu-desc" style="display: none; color: #94a3b8; font-size: 0.9rem; line-height: 1.5; text-align: center; padding: 15px 0;">
+            🤖 Computer stickman is pathfinding upwards and dodging tetrominoes!
+          </div>
+        </div>
+
+        <div class="stats-container">
+          <div class="glass-card stat-box">
+            <span class="stat-label">Survival Time</span>
+            <span id="stat-time" class="stat-value">00:00</span>
+          </div>
+          <div class="glass-card stat-box">
+            <span class="stat-label">Danger Level</span>
+            <span id="stat-danger" class="stat-value">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER PANEL: BOARD -->
+      <div class="canvas-container">
+        <canvas id="gameCanvas" width="800" height="400"></canvas>
+        
+        <!-- Game Over / Game Win Overlay inside canvas container -->
+        <div id="end-overlay" class="game-overlay">
+          <div id="overlay-title" class="overlay-title p1-color">Player 1 Wins!</div>
+          <div id="overlay-desc" class="overlay-desc">Escaped the pit!</div>
+          <button class="overlay-btn" onclick="backToMenu()">Back to Menu</button>
+          <div style="margin-top: 15px; font-size: 0.85rem; color: #94a3b8; font-family: 'Courier New', monospace; letter-spacing: 0.5px;">
+            Press <span style="color: #00ff80; font-weight: 900;">[ R ]</span> to instantly replay this mode
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: PLAYER 2 (TETRIS) -->
+      <div class="side-panel">
+        <div class="glass-card player-card p2">
+          <div class="panel-header p2-color">
+            Tetris Board
+            <span id="p2-badge" class="badge-human">Human</span>
+          </div>
+
+          <div id="p2-controls" class="controls-list">
+            <div class="control-item">
+              <span class="control-label">Move Piece</span>
+              <span class="control-key">←  →</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label">Rotate</span>
+              <span class="control-key">↑</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label">Shoot Down</span>
+              <span class="control-key">↓</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label">Hold Piece</span>
+              <span class="control-key">C</span>
+            </div>
+          </div>
+          <div id="p2-cpu-desc" style="display: none; color: #94a3b8; font-size: 0.9rem; line-height: 1.5; text-align: center; padding: 15px 0;">
+            🤖 Computer Tetris is sealing columns and targeting the stickman!
+          </div>
+        </div>
+
+        <div class="glass-card next-preview-box">
+          <span class="next-preview-title">Next Tetromino</span>
+          <canvas id="nextCanvas" width="120" height="120"></canvas>
+        </div>
+
+        <div class="glass-card next-preview-box" style="margin-top: 15px;">
+          <span class="next-preview-title">Hold Tetromino</span>
+          <canvas id="holdCanvas" width="120" height="120"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="src/config.js"></script>
+  <script src="src/state.js"></script>
+  <script src="src/stickman.js"></script>
+  <script src="src/tetris.js"></script>
+  <script src="src/gifts.js"></script>
+  <script src="src/game.js"></script>
+</body>
+</html>
