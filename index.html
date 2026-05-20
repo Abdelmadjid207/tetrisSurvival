@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tetris Survive - Neon Cyberpunk Arcade</title>
-  
+
   <!-- Beautiful Cyberpunk/Modern Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;600;800&display=swap"
+    rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="bg-grid-lines"></div>
 
@@ -19,7 +23,7 @@
   <div id="mode-screen" class="screen active">
     <h1>Tetris Survive</h1>
     <div class="subtitle">Climb to escape, or build to crush</div>
-    
+
     <div class="mode-container glass-card">
       <button class="mode-btn mode-btn-hvh" onclick="startGameMode('HvH')">
         <div class="mode-details">
@@ -50,7 +54,7 @@
   <!-- SCREEN 2: GAMEPLAY -->
   <div id="game-screen" class="screen">
     <div class="game-layout">
-      
+
       <!-- LEFT PANEL: PLAYER 1 (STICKMAN) -->
       <div class="side-panel">
         <div class="glass-card player-card p1">
@@ -58,7 +62,7 @@
             Stickman
             <span id="p1-badge" class="badge-human">Human</span>
           </div>
-          
+
           <div id="p1-controls" class="controls-list">
             <div class="control-item">
               <span class="control-label">Walk Left</span>
@@ -78,10 +82,11 @@
             </div>
             <div class="control-item">
               <span class="control-label">Dash</span>
-              <span class="control-key">X</span>
+              <span class="control-key">F</span>
             </div>
           </div>
-          <div id="p1-cpu-desc" style="display: none; color: #94a3b8; font-size: 0.9rem; line-height: 1.5; text-align: center; padding: 15px 0;">
+          <div id="p1-cpu-desc"
+            style="display: none; color: #94a3b8; font-size: 0.9rem; line-height: 1.5; text-align: center; padding: 15px 0;">
             🤖 Computer stickman is pathfinding upwards and dodging tetrominoes!
           </div>
         </div>
@@ -101,13 +106,14 @@
       <!-- CENTER PANEL: BOARD -->
       <div class="canvas-container">
         <canvas id="gameCanvas" width="800" height="400"></canvas>
-        
+
         <!-- Game Over / Game Win Overlay inside canvas container -->
         <div id="end-overlay" class="game-overlay">
           <div id="overlay-title" class="overlay-title p1-color">Player 1 Wins!</div>
           <div id="overlay-desc" class="overlay-desc">Escaped the pit!</div>
           <button class="overlay-btn" onclick="backToMenu()">Back to Menu</button>
-          <div style="margin-top: 15px; font-size: 0.85rem; color: #94a3b8; font-family: 'Courier New', monospace; letter-spacing: 0.5px;">
+          <div
+            style="margin-top: 15px; font-size: 0.85rem; color: #94a3b8; font-family: 'Courier New', monospace; letter-spacing: 0.5px;">
             Press <span style="color: #00ff80; font-weight: 900;">[ R ]</span> to instantly replay this mode
           </div>
         </div>
@@ -124,7 +130,7 @@
           <div id="p2-controls" class="controls-list">
             <div class="control-item">
               <span class="control-label">Move Piece</span>
-              <span class="control-key">←  →</span>
+              <span class="control-key">← →</span>
             </div>
             <div class="control-item">
               <span class="control-label">Rotate</span>
@@ -139,7 +145,8 @@
               <span class="control-key">C</span>
             </div>
           </div>
-          <div id="p2-cpu-desc" style="display: none; color: #94a3b8; font-size: 0.9rem; line-height: 1.5; text-align: center; padding: 15px 0;">
+          <div id="p2-cpu-desc"
+            style="display: none; color: #94a3b8; font-size: 0.9rem; line-height: 1.5; text-align: center; padding: 15px 0;">
             🤖 Computer Tetris is sealing columns and targeting the stickman!
           </div>
         </div>
@@ -165,4 +172,5 @@
   <script src="src/gifts.js"></script>
   <script src="src/game.js"></script>
 </body>
+
 </html>

@@ -3,7 +3,8 @@ function spawnGift() {
   // Limit x to make sure it spawns fully on the screen
   const x = 10 + Math.random() * (cols * cellWidth - 20);
   const y = -10;
-  const type = Math.random() > 0.5 ? 'freeze' : 'blaster';
+  const rand = Math.random();
+  const type = rand < 0.33 ? 'freeze' : (rand < 0.66 ? 'blaster' : 'jumpBoost');
   gifts.push({
     x: x,
     y: y,

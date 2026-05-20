@@ -140,8 +140,37 @@ function startGameMode(mode) {
   document.getElementById('game-screen').classList.add('active');
   document.getElementById('end-overlay').classList.remove('active');
 
-  gameActive = true;
-  requestAnimationFrame(gameLoop);
+  // Countdown before starting the game
+  const countdownOverlay = document.createElement('div');
+  countdownOverlay.id = 'countdown-overlay';
+  countdownOverlay.style.position = 'fixed';
+  countdownOverlay.style.top = '0';
+  countdownOverlay.style.left = '0';
+  countdownOverlay.style.width = '100%';
+  countdownOverlay.style.height = '100%';
+  countdownOverlay.style.background = 'rgba(0,0,0,0.6)';
+  countdownOverlay.style.display = 'flex';
+  countdownOverlay.style.alignItems = 'center';
+  countdownOverlay.style.justifyContent = 'center';
+  countdownOverlay.style.fontSize = '96px';
+  countdownOverlay.style.fontFamily = "'Orbitron', sans-serif";
+  countdownOverlay.style.color = '#00ff80';
+  countdownOverlay.style.textShadow = '0 0 20px #00ff80';
+  document.body.appendChild(countdownOverlay);
+
+  let count = 3;
+  const tick = () => {
+    if (count > 0) {
+      countdownOverlay.textContent = count;
+      count--;
+      setTimeout(tick, 1000);
+    } else {
+      document.body.removeChild(countdownOverlay);
+      gameActive = true;
+      requestAnimationFrame(gameLoop);
+    }
+  };
+  tick();
 }
 
 function setupUIPanels() {

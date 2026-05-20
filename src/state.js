@@ -32,6 +32,7 @@ let giftSpawnTimer = 0;
 let nextGiftDelay = 15000;
 let timeStopTimer = 0;
 let blasterTimer = 0;
+let jumpBoostTimer = 0;
 let shootCooldown = 0;
 let bullets = [];
 let particles = [];

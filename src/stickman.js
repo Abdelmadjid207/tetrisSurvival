@@ -27,7 +27,7 @@ function updateStickman() {
     keys.d = activeKeys['KeyD'] || activeKeys['d'];
     keys.w = activeKeys['KeyW'] || activeKeys['w'];
     keys.space = activeKeys['Space'] || activeKeys[' '];
-    keys.shift = activeKeys['KeyX'] || activeKeys['x'] || activeKeys['X'];
+    keys.shift = activeKeys['KeyF'] || activeKeys['f'] || activeKeys['F'];
   } else {
     // CPU controls Stickman
     keys = cpuKeys;
@@ -69,6 +69,7 @@ function updateStickman() {
     isClimbingThisFrame = true;
     stickman.isClimbing = true;
     stickman.doubleJumpUsed = false;
+    stickman.jumpHeightMultiplier = 1;
   } else {
     stickman.isClimbing = false;
   }
